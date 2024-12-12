@@ -60,11 +60,14 @@ def handle_packet(packet):
         record_event(f"Blocked Nimda source IP: {source_ip}")
         return
 
+    # Increment traffic count for hte IP
     traffic_count[source_ip] += 1
 
+    # Track elapsed time for traffic analysis
     current_timestamp = time.time()
     time_elapsed = current_timestamp - start_timestamp[0]
 
+    # Evaluate traffic stats every second
     if time_elapsed >= 1:
         for ip, count in traffic_count.items():
             packet_rate = count / time_elapsed
